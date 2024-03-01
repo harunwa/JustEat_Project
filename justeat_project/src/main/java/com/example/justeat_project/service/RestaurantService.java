@@ -10,17 +10,22 @@ public class RestaurantService {
     public void getRestaurantData(String postcode){
         String apiUrl = "https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/" + postcode;
         RestTemplate restTemplate = new RestTemplate();
+
+        // send a GET request to the API endpoint
         String jsonResponse = restTemplate.getForObject(apiUrl, String.class);
     }
 
     public String getCuisines(JsonNode restaurant){
         StringBuilder cuisines = new StringBuilder();
         JsonNode cuisinesArray = restaurant.get("cuisines");
+
+        // iterate through each cuisine in the array and add to StringBuilder
         for (int i = 0; i<cuisinesArray.size(); i++){
             JsonNode cuisine = cuisinesArray.get(i);
             cuisines.append(cuisine.get("name").asText());
         }
-        return cuisines.toString().replaceAll(", ,", "");
+        // convert the StringBuilder to a String and remove commas
+        return cuisines.toString().replaceAll(",", "");
     }
 
 
