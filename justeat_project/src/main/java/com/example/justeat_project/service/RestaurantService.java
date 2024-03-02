@@ -13,6 +13,7 @@ public class RestaurantService {
 
         // send a GET request to the API endpoint
         String jsonResponse = restTemplate.getForObject(apiUrl, String.class);
+
     }
 
     public String getCuisines(JsonNode restaurant){
@@ -56,6 +57,11 @@ public class RestaurantService {
         // return 0.0 if rating field is not available
         return 0.0;
     }
+
+    public void filterRestaurantData(String jsonResponse){
+        
+    }
+
 
 
 }
