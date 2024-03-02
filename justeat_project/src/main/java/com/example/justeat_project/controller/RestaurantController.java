@@ -18,7 +18,7 @@ public class RestaurantController {
     @GetMapping("/restaurants")
 
     // extracts value of postcode from the HTTP request URL
-    public String getRestaurantByPostcode(@RequestParam String postcode){
+    public String getRestaurantsByPostcode(@RequestParam String postcode){
         return restaurantService.getRestaurantData(postcode);
     }
 

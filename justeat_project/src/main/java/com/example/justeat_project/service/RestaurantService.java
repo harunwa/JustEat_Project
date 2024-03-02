@@ -74,27 +74,36 @@ public class RestaurantService {
             JsonNode root = objectMapper.readTree(jsonResponse);
             JsonNode restaurants = root.get("restaurants");
 
+            filteredData.append("<table border =\"1\">");
+            filteredData.append("<tr><th>Name</th><th>Cuisines</th><th>Rating</th><th>Address</th></tr>");
+
+            int count = 0;
             for (JsonNode restaurant : restaurants) {
+                if (count >= 10){
+                    break;
+                }
+
                 String name = restaurant.get("name").asText();
                 String cuisines = getCuisines(restaurant);
                 double rating = getRating(restaurant);
                 String address = getAddress(restaurant);
 
-                filteredData.append("Name: ").append(name).append("\n");
-                filteredData.append("Cuisines: ").append(cuisines).append("\n");
-                filteredData.append("Rating: ").append(rating).append("\n");
-                filteredData.append("Address: ").append(address).append("\n\n");
+                filteredData.append("<tr>");
+                filteredData.append("<td>").append(name).append("</td>");
+                filteredData.append("<td>").append(cuisines).append("</td>");
+                filteredData.append("<td>").append(rating).append("</td>");
+                filteredData.append("<td>").append(address).append("</td>");
+                filteredData.append("</tr>");
+
+                count++;
             }
+
+            filteredData.append("</table>");
         } catch (IOException e) {
             e.printStackTrace();
         }
         return filteredData.toString();
     }
-
-
-
-
-
 
 
 
