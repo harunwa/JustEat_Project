@@ -28,5 +28,15 @@ public class RestaurantService {
         return cuisines.toString().replaceAll(",", "");
     }
 
+    public String getAddress(JsonNode restaurant){
+        JsonNode addressNode = restaurant.get("address");
+        if (addressNode.has("firstLine") && addressNode.has("postCode")){
+            String firstLine = addressNode.get("firstLine").asText();
+            String postCode = addressNode.get("postCode").asText();
+            return firstLine + ", " + postCode;
+        }
+        return "";
+    }
+
 
 }
