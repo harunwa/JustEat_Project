@@ -44,7 +44,14 @@ public class RestaurantService {
         return "";
     }
 
-    
+    public double getRating(JsonNode restaurant){
+        JsonNode ratingNode = restaurant.get("rating");
+        if (ratingNode.has("starRating")){
+            return ratingNode.get("starRating").asDouble();
+
+        }
+        return 0.0;
+    }
 
 
 }
