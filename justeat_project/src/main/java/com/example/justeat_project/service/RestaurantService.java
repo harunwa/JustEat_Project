@@ -7,12 +7,17 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RestaurantService {
 
-    public void getRestaurantData(String postcode){
+    public String getRestaurantData(String postcode){
         String apiUrl = "https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/" + postcode;
         RestTemplate restTemplate = new RestTemplate();
 
         // send a GET request to the API endpoint
         String jsonResponse = restTemplate.getForObject(apiUrl, String.class);
+
+        // assign the JSON response
+        String filteredData = filterRestaurantData(jsonResponse);
+
+        return filteredData;
 
     }
 
@@ -58,8 +63,9 @@ public class RestaurantService {
         return 0.0;
     }
 
-    public void filterRestaurantData(String jsonResponse){
-        
+    public String filterRestaurantData(String jsonResponse){
+
+        return jsonResponse;
     }
 
 
