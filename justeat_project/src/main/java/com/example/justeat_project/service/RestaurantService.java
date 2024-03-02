@@ -46,10 +46,14 @@ public class RestaurantService {
 
     public double getRating(JsonNode restaurant){
         JsonNode ratingNode = restaurant.get("rating");
+
+        // check if the ratingNode contains both "starRating" field
         if (ratingNode.has("starRating")){
             return ratingNode.get("starRating").asDouble();
 
         }
+
+        // return 0.0 if rating field is not available
         return 0.0;
     }
 
