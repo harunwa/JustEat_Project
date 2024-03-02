@@ -32,17 +32,19 @@ public class RestaurantService {
         JsonNode addressNode = restaurant.get("address");
 
         // check if the addressNode contains both "firstLine" & "postCode" fields
-        if (addressNode.has("firstLine") && addressNode.has("postCode")){
+        if (addressNode.has("firstLine") && addressNode.has("postalCode")){
             String firstLine = addressNode.get("firstLine").asText();
-            String postCode = addressNode.get("postCode").asText();
+            String postalCode = addressNode.get("postalCode").asText();
 
             // format the address and return it
-            return firstLine + ", " + postCode;
+            return firstLine + ", " + postalCode;
         }
 
         // return an empty string if address fields are not available
         return "";
     }
+
+    
 
 
 }
