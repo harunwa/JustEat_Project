@@ -71,23 +71,29 @@ public class RestaurantService {
         StringBuilder filteredData = new StringBuilder();
 
         try {
+
+            // extract JSON response into object & extract the array of restaurants
             JsonNode root = objectMapper.readTree(jsonResponse);
             JsonNode restaurants = root.get("restaurants");
 
+            // begin building HTML table
             filteredData.append("<table border =\"1\">");
             filteredData.append("<tr><th>Name</th><th>Cuisines</th><th>Rating</th><th>Address</th></tr>");
 
+            // iterate over each restaurant in JSON array until 10 restaurants are processed
             int count = 0;
             for (JsonNode restaurant : restaurants) {
                 if (count >= 10){
                     break;
                 }
 
+                // extract data for each restaurant
                 String name = restaurant.get("name").asText();
                 String cuisines = getCuisines(restaurant);
                 double rating = getRating(restaurant);
                 String address = getAddress(restaurant);
 
+                // append a new row to the HTML table
                 filteredData.append("<tr>");
                 filteredData.append("<td>").append(name).append("</td>");
                 filteredData.append("<td>").append(cuisines).append("</td>");
@@ -95,16 +101,19 @@ public class RestaurantService {
                 filteredData.append("<td>").append(address).append("</td>");
                 filteredData.append("</tr>");
 
+
                 count++;
             }
 
             filteredData.append("</table>");
         } catch (IOException e) {
+
+            // print the stack trace if an IO exception occurs during JSON parsing
             e.printStackTrace();
         }
+
+        // return converted HTML formatted restaurant data
         return filteredData.toString();
     }
-
-
 
 }
