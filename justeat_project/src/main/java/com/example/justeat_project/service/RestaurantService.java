@@ -1,8 +1,11 @@
 package com.example.justeat_project.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 
 @Service
 public class RestaurantService {
@@ -63,10 +66,36 @@ public class RestaurantService {
         return 0.0;
     }
 
-    public String filterRestaurantData(String jsonResponse){
+    public String filterRestaurantData(String jsonResponse) {
 
-        return jsonResponse;
+        ObjectMapper objectMapper = new ObjectMapper();
+        StringBuilder filteredData = new StringBuilder();
+
+        try {
+            JsonNode root = objectMapper.readTree(jsonResponse);
+            JsonNode restaurants = root.get("restaurants");
+
+            for (JsonNode restaurant : restaurants) {
+                String name = restaurant.get("name").asText();
+                String cuisines = getCuisines(restaurant);
+                double rating = getRating(restaurant);
+                String address = getAddress(restaurant);
+
+                filteredData.append("Name: ").append(name).append("\n");
+                filteredData.append("Cuisines: ").append(cuisines).append("\n");
+                filteredData.append("Rating: ").append(rating).append("\n");
+                filteredData.append("Address: ").append(address).append("\n\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return filteredData.toString();
     }
+
+
+
+
+
 
 
 
