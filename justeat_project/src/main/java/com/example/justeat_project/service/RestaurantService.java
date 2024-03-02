@@ -29,12 +29,11 @@ public class RestaurantService {
         JsonNode cuisinesArray = restaurant.get("cuisines");
 
         // iterate through each cuisine in the array and add to StringBuilder
-        for (int i = 0; i<cuisinesArray.size(); i++){
-            JsonNode cuisine = cuisinesArray.get(i);
-            cuisines.append(cuisine.get("name").asText());
+        for (JsonNode cuisine : cuisinesArray) {
+            cuisines.append(cuisine.get("name").asText()).append(", ");
         }
-        // convert the StringBuilder to a String and remove commas
-        return cuisines.toString().replaceAll(",", "");
+        // convert the StringBuilder to a String and format
+        return cuisines.toString().replaceAll(", $", " ");
     }
 
     public String getAddress(JsonNode restaurant){
