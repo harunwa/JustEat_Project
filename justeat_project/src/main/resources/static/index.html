@@ -100,10 +100,21 @@
 </div>
 
 <script>
-
-
-
-
+    document.getElementById('postcodeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var postcode = document.getElementById('postcode').value;
+            fetch('/restaurants?postcode=' + postcode)
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error('Invalid postcode or no restaurants found. Please try again.');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('restaurantData').innerHTML = data;
+                    document.getElementById('errorMessage').style.display = 'none';
+                })
+        });
 </script>
 </body>
 </html>
