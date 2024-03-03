@@ -15,3 +15,13 @@ How to Build, Compile and Run the Solution:
 
 Assumptions & Clarifications
 
+1) The solution assumes the user will enter a valid postcode format
+2) It is assumed that the Just Eat API will always return a valid response for the postcode input
+3) It is assumed that the web interface works across different browsers (tested on safari and chrome)
+
+Possible Improvements
+
+1) Implement client-side validation for the postcode input to ensure a valid postcode is being entered
+2) Enhance error handling to provide error messages to users in casse of API response errors
+3) Implement TDD for a more robust codebase
+4) Include features like restaurant location map & feedback form
